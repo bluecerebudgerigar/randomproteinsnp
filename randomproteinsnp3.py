@@ -4,6 +4,8 @@ from Bio.Seq import Seq
 from Bio.Alphabet import IUPAC
 from Bio import SeqIO
 import random 
+import os
+import subprocess
 
 def translation (query_sequence, mutant_seq):
     global n
@@ -32,12 +34,19 @@ def check_syn (snp_base):
     return n
     return aa_input
     
+#def write_file():
+    
 base = ""
 snp_base = ""
-record_dict    = SeqIO.index("fasta_1.txt", "fasta")    
+record_dict    = SeqIO.index("fasta_1.txt", "fasta")
+
 
 for keys in record_dict:
+    provean_cmd = ["provean.sh","-f","fasta_1.txt","-v","var_file"]
+    
     sequence = record_dict[keys].seq 
+    seq_name = record_dict[keys].id
+    supporting_set = seq_name + ".sss"
     snp_pos=random.sample(range(1,len(str(sequence))), 10)
     snp_pos.sort()
     print snp_pos
@@ -55,8 +64,17 @@ for keys in record_dict:
     print aa_input_list
     print del_snp
     
+    if os.path.isfile(supporting_set):
+        provean_cmd.append("--supporting_set")
+    else:
+        provean_cmd.append("--save_supporting_set")
+    provean_cmd.append(supporting_set)
     
-
+    subprocess.call(provean_cmd)
+    print provean_cmd
+    
+        
+        
 
             
 
