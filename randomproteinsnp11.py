@@ -8,12 +8,13 @@ import os
 import subprocess
 import re 
 import getopt
+import sys
 
 from Bio.SeqRecord import SeqRecord
 from Bio.SeqFeature import SeqFeature, FeatureLocation
 
 opts, arguments = getopt.getopt(sys.argv[1:], "f:i:c:", 
-["fasta","iterations","pvalue","cutoff","quick"])
+["fasta","iterations","cutoff"])
 for option, argument in opts:
     if option in ("-f", "--fasta"):
         record_dict    = SeqIO.index(argument, "fasta")
