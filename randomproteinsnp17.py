@@ -169,7 +169,6 @@ for keys in record_dict:
                     results = run_provean()
                     print results
                     if float(results[-1]) < (-2.5) :
-                        pos_hits += 1
                         master_control = 1
                         break
             if master_control != 1:
