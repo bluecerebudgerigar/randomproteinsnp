@@ -168,7 +168,7 @@ for keys in record_dict:
                         elif n == 0:
                             neg_hits =+ 1
                             no_of_snps += 1
-                            if neg_hits == no_of_snp:
+                            if neg_hits == no_of_snps:
                                 true_neg_hits =+ 1 
   
                 if true_neg_hits > neg_hits_cutoff: 
