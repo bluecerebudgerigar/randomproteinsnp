@@ -30,7 +30,7 @@ neg_hits_cutoff = iterations - transcripts_cutoff
 pwd = os.getcwd()
 print fasta_file
 
-def check_syn (ori_AA, mut_AA):
+def check_syn (ori_AA, mut_AA, base_loc):
     n = 0 
     aa_input = ""
     if ori_AA == '*' or mut_AA == '*':
@@ -160,7 +160,7 @@ for keys in record_dict:
                 snp_base = snps[-1]   # get the mutant base
                 base_loc = snps[1:-1] # get the base location
                 ori_AA, mut_AA = snp_translation(snp_base, base_loc) 
-                n, aa_input = check_syn(ori_AA, mut_AA)
+                n, aa_input = check_syn(ori_AA, mut_AA, base_loc)
                 print aa_input
                 print n
                 if (base_loc < 4) or (n == 2):
