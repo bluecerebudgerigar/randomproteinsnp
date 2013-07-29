@@ -187,7 +187,8 @@ for keys in record_dict:
                 pos_hits = pos_hits + 1
                 print str(pos_hits) + " pos hits"
             if pos_hits == transcripts_cutoff: 
-                write_file(str(i), "/results" + cds_name, "a")
+                end_results = "%s\t%s\n" % (cds_name, str(i))
+                write_file(end_results, "/results", "a")
                 i2 = 1
         i += 1
         
