@@ -160,7 +160,7 @@ for keys in record_dict:
                 print "checkpoint #5"
                 snp_base = snps[-1]   # get the mutant base
                 base_loc = snps[1:-1] # get the base location
-                print base_loc
+                print "base loc = " + base_loc
                 ori_AA, mut_AA = snp_translation(snp_base, base_loc) 
                 n, aa_input = check_syn(ori_AA, mut_AA, base_loc)
                 print aa_input
