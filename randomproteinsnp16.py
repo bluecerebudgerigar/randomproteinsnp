@@ -18,6 +18,7 @@ opts, arguments = getopt.getopt(sys.argv[1:], "f:i:c:",
 ["fasta","iterations","cutoff"])
 for option, argument in opts:
     if option in ("-f", "--fasta"):
+        fasta_file = argument
         record_dict    = SeqIO.index(argument, "fasta")
     elif option in ("-i", "--iterations"):
         iterations     = int(argument)
@@ -71,7 +72,7 @@ def find_cds ():
 def prepare_command_line ():
     seq_name = record_dict[keys].id
     supporting_set = seq_name + ".sss"
-    provean_cmd = ["provean.sh","-f","fasta_1.txt","-v","var_file"]
+    provean_cmd = ["provean.sh","-f",fasta_file,"-v","var_file"]
     if os.path.isfile(supporting_set):
         provean_cmd.append("--supporting_set")
     else:
@@ -163,7 +164,7 @@ for keys in record_dict:
                     provean_cmd=prepare_command_line()
                     results = run_provean()
                     if int(results[-1]) < (-2.5) :
-                        pos_hits =+ 1
+                        pos_hits += 1
                         master_control = 1
                         break
             if master_control != 1:
