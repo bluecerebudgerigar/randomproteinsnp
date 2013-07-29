@@ -36,8 +36,9 @@ def check_syn (ori_AA, mut_AA):
     if ori_AA == '*' or mut_AA == '*':
         n = 2
     elif ori_AA != mut_AA:
-        
-        aa_input = "%s%s%s" % (ori_AA, str((int(base_loc)//3)+1), mut_AA) 
+        base_loc = int(base_loc)
+        aa_pos = (base_loc//3) + 1
+        aa_input = "%s%s%s" % (ori_AA, str(aa_pos), mut_AA) 
         n =+ 1
     elif ori_AA ==  mut_AA:
         n = 0
