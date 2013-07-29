@@ -36,7 +36,7 @@ def check_syn (ori_AA, mut_AA):
     if ori_AA == '*' or mut_AA == '*':
         n = 2
     elif ori_AA != mut_AA:
-        aa_input = "%s%s%s" % (ori_AA, str(i), mut_AA) 
+        aa_input = "%s%s%s" % (ori_AA, str(base_loc), mut_AA) 
         n =+ 1
     elif ori_AA ==  mut_AA:
         n = 0
@@ -120,6 +120,7 @@ for keys in record_dict:
     cds_start, cds_end, cds_sequence = find_cds()
     cds_length = len(str(cds_sequence))
     cds_name = record_dict[keys].id
+    print cds_sequence
     protein_seq=cds_sequence.translate()
     fasta_record = ">%s\n%s" % (cds_name, protein_seq)
     print fasta_record
