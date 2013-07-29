@@ -139,6 +139,7 @@ for keys in record_dict:
                     snp_base = snps[-1]
                      # get the mutant base
                     base_loc = snps[1:-1] # get the base location
+                    print base_loc
                     if base_loc < 4:
                         some_other_control = 1
                         pos_hits =+ 1
