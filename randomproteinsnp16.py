@@ -28,6 +28,7 @@ for option, argument in opts:
 neg_hits_cutoff = iterations - transcripts_cutoff
         
 pwd = os.getcwd()
+print fasta_file
 
 def check_syn (ori_AA, mut_AA):
     n = 0 
