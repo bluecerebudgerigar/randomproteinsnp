@@ -73,7 +73,7 @@ def find_cds ():
 def prepare_command_line ():
     seq_name = record_dict[keys].id
     supporting_set = seq_name + ".sss"
-    provean_cmd = ["provean.sh","-f",fasta_file,"-v","var_file"]
+    provean_cmd = ["provean.sh","-q",fasta_file,"-v","var_file"]
     if os.path.isfile(supporting_set):
         provean_cmd.append("--supporting_set")
     else:
