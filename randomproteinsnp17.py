@@ -36,7 +36,8 @@ def check_syn (ori_AA, mut_AA):
     if ori_AA == '*' or mut_AA == '*':
         n = 2
     elif ori_AA != mut_AA:
-        aa_input = "%s%s%s" % (ori_AA, str(base_loc), mut_AA) 
+        
+        aa_input = "%s%s%s" % (ori_AA, str(int(base_loc)//3), mut_AA) 
         n =+ 1
     elif ori_AA ==  mut_AA:
         n = 0
@@ -46,7 +47,7 @@ def check_syn (ori_AA, mut_AA):
 def snp_translation (snp_base, base_loc):
     i = int(base_loc)
     if (i%3 == 0):
-        original_seq = str(cds_sequence)[-3:i]
+        original_seq = str(cds_sequence)[i-3:i]
         mutant_seq = original_seq[:2] + snp_base
     elif (i%3 == 1):
         original_seq = str(cds_sequence)[i-1:i+2]
@@ -54,7 +55,6 @@ def snp_translation (snp_base, base_loc):
     elif (i%3 == 2):
         original_seq = str(cds_sequence)[i-2:i+1]
         mutant_seq = snp_base + original_seq[1:3]
-        
     ori_AA = str(Seq(original_seq, IUPAC.unambiguous_dna).translate())
     mut_AA = str(Seq(mutant_seq, IUPAC.unambiguous_dna).translate())
     return ori_AA, mut_AA
@@ -67,8 +67,8 @@ def find_cds ():
     cds_feature = SeqFeature(FeatureLocation(int(cds_start)-1,int(cds_end)-1),
                 type=str(feature))
     cds_sequence = cds_feature.extract(record_dict[keys].seq)
-    #print cds_sequence.translate()
-    return cds_start, cds_end, cds_sequence
+    protein_sequence = cds_sequence.translate()
+    return cds_start, cds_end, cds_sequence, protein_sequence
 
 def prepare_command_line ():
     seq_name = record_dict[keys].id
@@ -117,12 +117,12 @@ neg_hits = 0
 
 for keys in record_dict:
     non_hits = 0
-    cds_start, cds_end, cds_sequence = find_cds()
+    cds_start, cds_end, cds_sequence, protein_sequence = find_cds()
+    print "first base = " + cds_sequence[0]
     cds_length = len(str(cds_sequence))
     cds_name = record_dict[keys].id
     print cds_sequence
-    protein_seq=cds_sequence.translate()
-    fasta_record = ">%s\n%s" % (cds_name, protein_seq)
+    fasta_record = ">%s\n%s" % (cds_name, protein_sequence)
     print fasta_record
     write_file(fasta_record, "/fasta_record", 'w')
     i2 = 0
