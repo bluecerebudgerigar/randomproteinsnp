@@ -164,6 +164,7 @@ for keys in record_dict:
                     write_file(aa_input, "var_file", "w")
                     provean_cmd=prepare_command_line()
                     results = run_provean()
+                    print results
                     if float(results[-1]) < (-2.5) :
                         pos_hits += 1
                         master_control = 1
