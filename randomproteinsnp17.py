@@ -120,7 +120,8 @@ for keys in record_dict:
     cds_start, cds_end, cds_sequence = find_cds()
     cds_length = len(str(cds_sequence))
     cds_name = record_dict[keys].id
-    fasta_record = ">%s\n%s" % (cds_name, cds_sequence)
+    protein_seq=cds_sequence.translate()
+    fasta_record = ">%s\n%s" % (cds_name, protein_seq)
     print fasta_record
     write_file(fasta_record, "/fasta_record", 'w')
     i2 = 0
