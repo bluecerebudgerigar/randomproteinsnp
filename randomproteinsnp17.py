@@ -39,6 +39,7 @@ def check_syn (ori_AA, mut_AA, base_loc):
     elif ori_AA != mut_AA:
         base_loc = int(base_loc)
         aa_pos = ceil((base_loc//3))
+        aa_post = int(aa_pos)
         aa_input = "%s%s%s" % (ori_AA, str(aa_pos), mut_AA) 
         n =+ 1
     elif ori_AA ==  mut_AA:
