@@ -92,9 +92,9 @@ def run_provean():
     results = results[-2].split("\t")
     return results
     
-def write_file(object_name, file_name):
+def write_file(object_name, file_name, mode):
     file_path=pwd + file_name
-    handle = open(file_path, "a")    
+    handle = open(file_path, mode)    
     handle.write(object_name)
     handle.close()
     
@@ -143,46 +143,25 @@ for keys in record_dict:
                     else :
                         ori_AA, mut_AA = snp(translation, snp_base, base_loc) 
                         n = check_syn(ori_AA, mut_AA)
-                        if n = 2:
+                        if n == 2:
                             pos_hits =+1
                             master_control = no_of_snps
                             break
-                        elif n = 1
-                            write_file(aa_input, var_file)
+                        elif n == 1
+                            write_file(aa_input, var_file, "w")
                             some_other_contorl = 1
                             provean_cmd=prepare_command_line()
                             results = run_provean()
                                 if int(results[-1]) < -2.5 :
                                     pos_hits =+ 1
                                     master_control = no_of_snp
-                if n = 0:
+                if n == 0:
                     neg_hits = +1     
                 if neg_hits > neg_hits_cutoff: 
                     i =+ 1
                 if pos_hits == transcripts_cutoff: 
                     i2 = 1 
-                                
-                    
-                
-                n, aa_input = check_syn(snp_base, base_loc)
-                var_file = cds_name + "snp.var"
-                write_file(aa_input, var_file)
-            if n > 0
-                run provean for snp
-            else:
-                continue
-                
-                
-            REMOVE THE TEST_AA_SNP FILE LATE,
-            should i analysis the results first????
-                and then check the results from provean and if if there is one that is good that add.
-            else 
-            move to the next snp and do your shit 
-        
-            
-
-        
-        
+        write_file(i, results, "a")
 
             
 
