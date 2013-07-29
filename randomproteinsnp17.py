@@ -122,7 +122,7 @@ for keys in record_dict:
     cds_name = record_dict[keys].id
     fasta_record = "%s\n%s" % (cds_name, cds_sequence)
     print fasta_record
-    write_file(fasta_record, "fasta_record", "w")
+    write_file(fasta_record, "/fasta_record", 'w')
     i2 = 0
     i = 1
     
