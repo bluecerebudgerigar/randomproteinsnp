@@ -73,7 +73,7 @@ def find_cds ():
 def prepare_command_line ():
     seq_name = record_dict[keys].id
     supporting_set = seq_name + ".sss"
-    provean_cmd = ["provean.sh","-q","fasta_record","-v","var_file"]
+    provean_cmd = ["provean.sh","-q","fasta_record","-v","var_file_2"]
     if os.path.isfile(supporting_set):
         provean_cmd.append("--supporting_set")
     else:
@@ -164,7 +164,7 @@ for keys in record_dict:
                     master_control = 1
                     break
                 elif n == 1:
-                    write_file(aa_input + "\n", "/var_file", "w")
+                    write_file(aa_input + "\n", "/var_file_2", "w")
                     provean_cmd=prepare_command_line()
                     results = run_provean()
                     print results
