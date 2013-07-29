@@ -164,7 +164,7 @@ for keys in record_dict:
                     master_control = 1
                     break
                 elif n == 1:
-                    write_file(aa_input, "/var_file", "w")
+                    write_file(aa_input + "\n", "/var_file", "w")
                     provean_cmd=prepare_command_line()
                     results = run_provean()
                     print results
