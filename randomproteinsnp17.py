@@ -166,6 +166,7 @@ for keys in record_dict:
                 base_loc = snps[1:-1] # get the base location
                 print "base loc = " + base_loc
                 ori_AA, mut_AA = snp_translation(snp_base, base_loc) 
+                print "ori = %s, mut = %s" % (ori_AA, mut_AA)
                 n, aa_input = check_syn(ori_AA, mut_AA, base_loc)
                 print aa_input
                 print n
