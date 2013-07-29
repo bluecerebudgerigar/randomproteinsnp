@@ -120,6 +120,7 @@ for keys in record_dict:
     non_hits = 0
     cds_start, cds_end, cds_sequence, protein_sequence = find_cds()
     print "first base = " + cds_sequence[0]
+    print "first aa = " + protein_sequnece[0]
     cds_length = len(str(cds_sequence))
     cds_name = record_dict[keys].id
     print cds_sequence
