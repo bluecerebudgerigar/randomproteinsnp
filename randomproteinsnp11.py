@@ -7,6 +7,7 @@ import random
 import os
 import subprocess
 import re 
+import getopt
 
 from Bio.SeqRecord import SeqRecord
 from Bio.SeqFeature import SeqFeature, FeatureLocation
@@ -152,9 +153,9 @@ for keys in record_dict:
                             some_other_contorl = 1
                             provean_cmd=prepare_command_line()
                             results = run_provean()
-                                if int(results[-1]) < -2.5 :
-                                    pos_hits =+ 1
-                                    master_control = no_of_snp
+                            if int(results[-1]) < -2.5 :
+                                pos_hits =+ 1
+                                master_control = no_of_snp
                 if n == 0:
                     neg_hits = +1     
                 if neg_hits > neg_hits_cutoff: 
