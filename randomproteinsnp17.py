@@ -37,7 +37,7 @@ def check_syn (ori_AA, mut_AA):
         n = 2
     elif ori_AA != mut_AA:
         
-        aa_input = "%s%s%s" % (ori_AA, str(int(base_loc)//3), mut_AA) 
+        aa_input = "%s%s%s" % (ori_AA, str((int(base_loc)//3)+1), mut_AA) 
         n =+ 1
     elif ori_AA ==  mut_AA:
         n = 0
