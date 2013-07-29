@@ -112,6 +112,7 @@ for keys in record_dict:
     cds_length = len(str(cds_sequence))
     cds_name = record_dict[keys].id
     i2 = 0
+    i = 1
     
     
     
@@ -144,7 +145,7 @@ for keys in record_dict:
                         master_control = no_of_snps
                         break
                     else :
-                        ori_AA, mut_AA = snp(translation, snp_base, base_loc) 
+                        ori_AA, mut_AA = snp_translation(snp_base, base_loc) 
                         n = check_syn(ori_AA, mut_AA)
                         if n == 2:
                             pos_hits =+1
