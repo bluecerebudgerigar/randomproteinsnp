@@ -43,7 +43,7 @@ def check_syn (ori_AA, mut_AA, base_loc):
         aa_pos = int(aa_pos)
         print aa_pos
         aa_input = "%s%s%s" % (ori_AA, str(aa_pos), mut_AA) 
-        n =+ 1
+        n = 1
     elif ori_AA ==  mut_AA:
         n = 0
     
@@ -60,6 +60,7 @@ def snp_translation (snp_base, base_loc):
     elif (i%3 == 2):
         original_seq = str(cds_sequence)[i-2:i+1]
         mutant_seq = snp_base + original_seq[1:3]
+    print "ori = %s mut = %s" % (original_seq, mutant_seq)
     ori_AA = str(Seq(original_seq, IUPAC.unambiguous_dna).translate())
     mut_AA = str(Seq(mutant_seq, IUPAC.unambiguous_dna).translate())
     return ori_AA, mut_AA
