@@ -198,10 +198,11 @@ for keys in record_dict:
                     break
             if master_control == 1:
                 pos_hits = pos_hits + 1
-            if pos_hits == transcripts_cutoff: 
-                end_results = "%s\t%s\n\t%s" % (cds_name, str(i), cds_length)
-                write_file(end_results, "/results", "a")
-                i2 = 1
+                if pos_hits == transcripts_cutoff: 
+                    end_results = "%s\t%s\n\t%s" % (cds_name, str(i), cds_length)
+                    write_file(end_results, "/results", "a")
+                    i2 = 1
+                    break
             print "pos hits = %s, neg_hits = %s" % (str(pos_hits), str(true_neg_hits))
         i += 1
         
