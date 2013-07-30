@@ -54,12 +54,13 @@ def snp_translation (snp_base, base_loc):
     if (i%3 == 0):
         original_seq = str(cds_sequence)[i-3:i]
         mutant_seq = original_seq[:2] + snp_base
-    elif (i%3 == 1):
+    elif (i%3 == 1): ## FUCKING CHANGE HERE NEED TO SHIT FIRST 
         original_seq = str(cds_sequence)[i-1:i+2] ##126
-        mutant_seq = original_seq[0] + snp_base + original_seq[2]
+        mutant_seq = snp_base + original_seq[1:3]
     elif (i%3 == 2):
         original_seq = str(cds_sequence)[i-2:i+1]
-        mutant_seq = snp_base + original_seq[1:3]
+        mutant_seq = original_seq[0] + snp_base + original_seq[2]
+        
     print "ori = %s mut = %s" % (original_seq, mutant_seq)
     ori_AA = str(Seq(original_seq, IUPAC.unambiguous_dna).translate())
     mut_AA = str(Seq(mutant_seq, IUPAC.unambiguous_dna).translate())
