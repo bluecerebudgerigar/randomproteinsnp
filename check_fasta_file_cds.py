@@ -51,5 +51,6 @@ for keys in record_dict:
     
     if "*" not in protein_sequence:
         write_file(record_dict[keys].id, "/error_sequences.txt", "a" )
-        
+    else:
+        continue
     i +=1       
