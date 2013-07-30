@@ -146,7 +146,7 @@ for keys in record_dict:
         
         print "checkpoint0"
         snp_list = []
-        while n < iterations: ###(iternations and number of snps to introduced.)
+        while (n < iterations) or (n <= cds_length) : ###(iternations and number of snps to introduced.)
             print "checkpoint1"
             
             snp_input = random_snps(i)
