@@ -72,6 +72,7 @@ def find_cds ():
     cds_feature = SeqFeature(FeatureLocation(int(cds_start)-1,int(cds_end)),
                 type=str(feature))
     cds_sequence = cds_feature.extract(record_dict[keys].seq)
+    print cds_sequence
     protein_sequence = cds_sequence.translate()
     return cds_start, cds_end, cds_sequence, protein_sequence
 
