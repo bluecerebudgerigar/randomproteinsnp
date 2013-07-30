@@ -26,7 +26,6 @@ for option, argument in opts:
     elif option in ("-c", "--cutoff"):
         transcripts_cutoff = float(argument)
 
-neg_hits_cutoff = iterations - transcripts_cutoff
         
 pwd = os.getcwd()
 print fasta_file
@@ -129,7 +128,14 @@ for keys in record_dict:
     print "first base = " + cds_sequence[0]
     print "first aa = " + protein_sequence[0]
     cds_length = len(str(cds_sequence))
+    max_snps = cds_length * 3 
     cds_name = record_dict[keys].id
+    if max_snps >= iterations:
+        neg_hits_cutoff = iterations - transcripts_cutoff
+    elif max_snps < iterations:
+        transcripts_cutoff = int(ceil(0.95 * float(max_snps)))
+        neg_hits_cutoff = max_snps - transcripts_cutoff
+        
     print cds_sequence
     fasta_record = ">%s\n%s" % (cds_name, protein_sequence)
     print fasta_record
