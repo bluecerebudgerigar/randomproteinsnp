@@ -153,6 +153,7 @@ for keys in record_dict:
             print snp_input
             if snp_input not in snp_list:
                 snp_list.append(snp_input)
+                print len(snp_list)
                 n = n + 1
             else:
                 continue
