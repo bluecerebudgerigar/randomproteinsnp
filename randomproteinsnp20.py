@@ -78,7 +78,7 @@ def prepare_command_line ():
 def random_snps(cycle_number):
     snp_input_list = []
     snp_input      = ""
-    snp_pos=random.sample(range(1,cds_length+2), cycle_number)
+    snp_pos=random.sample(range(1,cds_length+1), cycle_number)
     snp_pos.sort()
     for i in snp_pos:
         base      = cds_sequence[i-1]
