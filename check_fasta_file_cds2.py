@@ -34,6 +34,7 @@ def find_cds ():
         for des in seq_des:
             match = re.match("CDS", des)
             if match is not None:
+                print record_dict[keys].id
                 feature, cds_start, cds_end = re.split(":|-", des)
                 f = FeatureLocation(int(cds_start)-1, int(cds_end))
                 cds_sequence = f.extract(record_dict[keys].seq)
