@@ -30,9 +30,9 @@ pwd = os.getcwd()
 
 def find_cds ():
     seq_des = str(record_dict[keys].description).split("|")
-    if any("CDS" in s for s in seq_des):
+    if any("CDS:" in s for s in seq_des):
         for des in seq_des:
-            match = re.match("CDS", des)
+            match = re.match("CDS:", des)
             if match is not None:
                 print record_dict[keys].id
                 feature, cds_start, cds_end = re.split(":|-", des)
@@ -40,7 +40,7 @@ def find_cds ():
                 cds_sequence = f.extract(record_dict[keys].seq)
                 protein_sequence = cds_sequence.translate()
                 if "*" not in protein_sequence:
-                    return 0
+                    return 3
                 else:
                     return 1
         
@@ -60,9 +60,12 @@ check = 0
 for keys in record_dict:
     print i
     check = find_cds()
+    fasta = ">%s\n%s\n" % (record_dict[keys].description, record_dict[keys].seq)
     
     if check == 0:
-        write_file(record_dict[keys].id + "\n", "/error_sequences.txt", "a" )
-    else:
-        print "good"
+	write_file(fasta, "/error_nocds.txt", "a")
+    elif check == 3:
+        write_file(fasta, "/error_wrongcds.txt", "a")
+    elif check == 1:
+        write_file(fasta, "/cds_corrected.txt", "a")
     i +=1       
