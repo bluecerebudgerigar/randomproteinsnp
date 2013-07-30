@@ -48,6 +48,8 @@ i = 1
 for keys in record_dict:
     print i
     protein_sequence = find_cds()
+    print record_dict[keys].id
+    
     print protein_sequence
     
     if "*" not in protein_sequence:
