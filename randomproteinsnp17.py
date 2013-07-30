@@ -69,9 +69,10 @@ def find_cds ():
     for i in seq_des:
         if re.match("CDS", i):
             feature, cds_start, cds_end = re.split(":|-", i)
-    cds_feature = SeqFeature(FeatureLocation(int(cds_start)-1,int(cds_end)-1),
+    cds_feature = SeqFeature(FeatureLocation(int(cds_start)-1,int(cds_end)),
                 type=str(feature))
     cds_sequence = cds_feature.extract(record_dict[keys].seq)
+    print cds_sequence
     protein_sequence = cds_sequence.translate()
     return cds_start, cds_end, cds_sequence, protein_sequence
 
