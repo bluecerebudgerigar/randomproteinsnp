@@ -50,12 +50,12 @@ def check_syn (ori_AA, mut_AA, base_loc):
     return n, aa_input
         
 def snp_translation (snp_base, base_loc):
-    i = int(base_loc)
+    i = int(base_loc) ##i = 124
     if (i%3 == 0):
         original_seq = str(cds_sequence)[i-3:i]
         mutant_seq = original_seq[:2] + snp_base
     elif (i%3 == 1):
-        original_seq = str(cds_sequence)[i-1:i+2]
+        original_seq = str(cds_sequence)[i-1:i+2] ##126
         mutant_seq = original_seq[0] + snp_base + original_seq[2]
     elif (i%3 == 2):
         original_seq = str(cds_sequence)[i-2:i+1]
@@ -157,6 +157,7 @@ for keys in record_dict:
         for snps in snp_list: #take each snp, and divde them, ie. if 2snp/run = 
             print "checkpoint2"
             print snps
+            print cds_length
             snps_input = snps.split("-")
             no_of_snps = len(snps_input)
             master_control = 0
