@@ -35,8 +35,14 @@ def find_cds ():
             feature, cds_start, cds_end = re.split(":|-", i)
             f = FeatureLocation(int(cds_start)-1, int(cds_end))
             cds_sequence = f.extract(record_dict[keys].seq)
-            return cds_sequence.translate()
-            
+            protein_sequence = cds_sequence.translate()
+            if "*" not in protein_sequence:
+                return 0
+            else
+                return 1
+
+        else
+            return 0
             
 def write_file(object_name, file_name, mode):
     file_path=pwd + file_name
@@ -45,14 +51,12 @@ def write_file(object_name, file_name, mode):
     handle.close()
 
 i = 1
+check = 0
 for keys in record_dict:
     print i
-    protein_sequence = find_cds()
-    print record_dict[keys].id
+    check = find_cds()
     
-    print protein_sequence
-    
-    if "*" not in protein_sequence:
+    if check == 0:
         write_file(record_dict[keys].id, "/error_sequences.txt", "a" )
     else:
         pass
