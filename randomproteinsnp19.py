@@ -188,6 +188,8 @@ for keys in record_dict:
                         break
             if master_control != 1:
                 true_neg_hits += 1   
+                if true_neg_hits > transcripts_cutoff:
+                    break
             if master_control == 1:
                 pos_hits = pos_hits + 1
             if pos_hits == transcripts_cutoff: 
