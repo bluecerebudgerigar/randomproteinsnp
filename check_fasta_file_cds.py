@@ -44,10 +44,12 @@ def write_file(object_name, file_name, mode):
     handle.write(object_name)
     handle.close()
 
-
+i = 1
 for keys in record_dict:
+    print i
     protein_sequence =find_cds()
+    
     if "*" not in protein_sequence:
         write_file(record_dict[keys].id, "/error_sequences.txt", "a" )
         
-            
+    i +=1       
