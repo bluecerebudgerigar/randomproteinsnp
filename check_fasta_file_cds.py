@@ -17,6 +17,8 @@ import signal
 from math import ceil
 
 
+
+
 opts, arguments = getopt.getopt(sys.argv[1:], "f:", 
 ["fasta"])
 for option, argument in opts:
@@ -24,7 +26,8 @@ for option, argument in opts:
         fasta_file = argument
         record_dict    = SeqIO.index(argument, "fasta")
         
-        
+pwd = os.getcwd()
+
 def find_cds ():
     seq_des = str(record_dict[keys].description).split("|")
     for i in seq_des:
