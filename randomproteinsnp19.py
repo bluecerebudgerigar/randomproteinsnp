@@ -199,7 +199,7 @@ for keys in record_dict:
             if master_control == 1:
                 pos_hits = pos_hits + 1
                 if pos_hits == transcripts_cutoff: 
-                    end_results = "%s\t%s\n\t%s" % (cds_name, str(i), cds_length)
+                    end_results = "%s\t%s\t%s\n" % (cds_name, str(i), cds_length)
                     write_file(end_results, "/results", "a")
                     i2 = 1
                     break
