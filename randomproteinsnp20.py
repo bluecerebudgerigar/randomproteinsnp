@@ -78,7 +78,7 @@ def prepare_command_line ():
 def random_snps(cycle_number):
     snp_input_list = []
     snp_input      = ""
-    snp_pos=random.sample(range(1,cds_length+2), cycle_number)
+    snp_pos=random.sample(range(1,cds_length+1), cycle_number)
     snp_pos.sort()
     for i in snp_pos:
         base      = cds_sequence[i-1]
@@ -115,6 +115,7 @@ for keys in record_dict:
     #print "first base = " + cds_sequence[0]
     #print "first aa = " + protein_sequence[0]
     cds_sequence = record_dict[keys].seq
+    protein_sequence = cds_sequence.translate()
     cds_length = len(str(cds_sequence))
     cds_name = record_dict[keys].id
     print cds_sequence
@@ -170,7 +171,7 @@ for keys in record_dict:
                 pos_hits = pos_hits + 1
                 print str(pos_hits) + " pos hits"
             if pos_hits == transcripts_cutoff: 
-                end_results = "%s\t%s\n" % (cds_name, str(i))
+                end_results = "%s\t%s\t%s\n" % (cds_name, str(i), str(cds_length))
                 write_file(end_results, "/results", "a")
                 i2 = 1
         i += 1
