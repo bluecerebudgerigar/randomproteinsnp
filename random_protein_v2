@@ -106,13 +106,13 @@ def translation():
         base_loc = snps[1:-1]
         base_loc = int(base_loc)
         if (base_loc%3 == 0):
-            original_seq = str(cds_sequence)[i-3:i]
+            original_seq = str(cds_sequence)[base_loc-3:base_loc]
             mutant_seq = original_seq[:2] + base_snp
         elif (base_loc%3 == 1):
-            original_seq = str(cds_sequence)[i-1:i+2] 
+            original_seq = str(cds_sequence)[base_loc-1:base_loc+2] 
             mutant_seq = original_seq[0] + base_snp + original_seq[2]
         elif (base_loc%3 == 2):
-            original_seq = str(cds_sequence)[i-2:i+1]
+            original_seq = str(cds_sequence)[base_loc-2:base_loc+1]
             mutant_seq = base_snp + original_seq[1:3]
         ori_AA = str(Seq(original_seq, IUPAC.unambiguous_dna).translate())
         mut_AA = str(Seq(mutant_seq, IUPAC.unambiguous_dna).translate())
@@ -128,7 +128,7 @@ def check_start_stop():
         AA_loc = i[1:-1]
         ori_AA = i[0]
         mut_AA = i[-1]
-        if (base_loc < 4):
+        if (AA_loc == 1):
             n = 1
             break
         elif (ori_AA == '*' or mut_AA == '*') and (mut_AA != ori_AA):
