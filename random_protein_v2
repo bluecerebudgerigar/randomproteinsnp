@@ -147,8 +147,7 @@ def check_start_stop(AA_var_list):
 def check_del_snp(AA_var_list):
     n = 0
     AA_var_list = AA_var_list.split("-")
-    write_file(del_list, "/del_list", "w")
-    
+    print del_list
     if bool(set(AA_var_list).intersection(set(del_list))) == True:
         n = 1
     return n
@@ -165,6 +164,8 @@ for keys in record_dict:
     cds_sequence, cds_length, cds_name = prepare_sequence()
     provean_cmd = prepare_command_line()
     nondel_list, del_list = run_provean()
+    write_file(del_list, "/del_list", "w")
+    
     
     i2, cycle = (0,1)
     while i2 < 1:
