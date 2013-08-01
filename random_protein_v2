@@ -75,6 +75,7 @@ def run_provean(provean_cmd):
     results = proc.stdout.readlines()
     nondel_list = []
     del_list = []
+    sub_results=[]
     for lines in results:
         #print lines
         #lines = lines.rstrip()
