@@ -104,7 +104,7 @@ def translation(snps_translate):
     for i in input_snp_translate:
         print i
         base_snp = i[-1]
-        base_loc = snps[1:-1]
+        base_loc = i[1:-1]
         print base_loc
         base_loc = int(base_loc)
         if (base_loc%3 == 0):
