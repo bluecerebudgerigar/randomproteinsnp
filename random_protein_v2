@@ -73,6 +73,7 @@ def prepare_command_line ():
 def run_provean():
     proc = subprocess.Popen(provean_cmd, stdout=subprocess.PIPE)
     results = proc.stdout.read()
+    print results
     nondel_list = []
     del_list = []
     print del_list
