@@ -75,16 +75,15 @@ def run_provean(provean_cmd):
     results = proc.stdout.readlines()
     nondel_list = []
     del_list = []
-    write_file(del_list, "/del_list", "w")
     for lines in results:
-        print lines
+        #print lines
         #lines = lines.rstrip()
     
         if re.match("#|\[", lines):
             sub_results = lines.split("\t")
-        if sub_results[-1] > -2.5:
+        if float(sub_results[-1]) > -2.5:
             nondel_list.append(sub_results[0])
-        elif sub_results[-1] < -2.5:
+        elif float(sub_results[-1]) < -2.5:
             del_list.append(sub_results[0]) 
     
     return nondel_list, del_list
@@ -147,7 +146,6 @@ def check_start_stop(AA_var_list):
 def check_del_snp(AA_var_list):
     n = 0
     AA_var_list = AA_var_list.split("-")
-    print del_list
     if bool(set(AA_var_list).intersection(set(del_list))) == True:
         n = 1
     return n
