@@ -119,6 +119,7 @@ def translation():
         AA_pos = find_AA_pos(base_loc)
         AA_var = "%s%s%s" % (ori_AA, str(AA_pos), mut_AA)
         AA_var_list.append(AA_var)
+    AA_var_list="-".join(AA_var_list)
     return AA_var_list
 
 def check_start_stop(AA_var_list):
