@@ -121,7 +121,7 @@ def translation():
         AA_var_list.append(AA_var)
     return AA_var_list
 
-def check_start_stop():
+def check_start_stop(AA_var_list):
     n = 0
     AA_var_list = AA_var_list.split("-")
     for i in AA_var_list:
@@ -137,7 +137,7 @@ def check_start_stop():
                     
     return n 
             
-def check_del_snp():
+def check_del_snp(AA_var_list):
     n = 0
     AA_var_list = AA_var_list.split("-")
     if bool(set(AA_var_list).intersection(set(del_list))) == True:
@@ -174,10 +174,10 @@ for keys in record_dict:
                 i2 = 1
                 break
             AA_var_list = translation()
-            if(check_start_stop() == 1):
+            if(check_start_stop(AA_var_list) == 1):
                 pos_hits += 1
                 continue
-            elif(check_del_snp() == 1):
+            elif(check_del_snp(AA_var_list) == 1):
                 pos_hits += 1
                 continue
             else:
