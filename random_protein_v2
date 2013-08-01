@@ -80,10 +80,10 @@ def run_provean():
         if re.match("#|\[", lines):
             sub_results = lines.split("\t")
         if sub_results[-1] > -2.5:
-            non_del.append(sub_results[0])
+            non_del_list.append(sub_results[0])
         elif sub_results[-1] < -2.5:
-            yes_del.append(sub_results[0]) 
-    return non_del, yes_del
+            del_list.append(sub_results[0]) 
+    return nondel_list, del_list
     
 def random_snps(cycle_number):
     snp_input_list = []
