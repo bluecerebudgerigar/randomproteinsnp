@@ -86,6 +86,7 @@ def run_provean():
             nondel_list.append(sub_results[0])
         elif sub_results[-1] < -2.5:
             del_list.append(sub_results[0]) 
+    
     return nondel_list, del_list
     
 def random_snps(cycle_number):
@@ -146,6 +147,8 @@ def check_start_stop(AA_var_list):
 def check_del_snp(AA_var_list):
     n = 0
     AA_var_list = AA_var_list.split("-")
+    write_file(del_list, "/del_list", "w")
+    
     if bool(set(AA_var_list).intersection(set(del_list))) == True:
         n = 1
     return n
