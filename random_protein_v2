@@ -75,11 +75,9 @@ def run_provean(provean_cmd):
     results = proc.stdout.readlines()
     nondel_list = []
     del_list = []
-    sub_results=[]
     for lines in results:
-        #print lines
-        #lines = lines.rstrip()
-    
+        lines = lines.rstrip()
+        sub_results=[]
         if re.match("#|\[", lines) is None:
             sub_results = lines.split("\t")
         if float(sub_results[-1]) > -2.5:
