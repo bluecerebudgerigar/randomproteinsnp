@@ -70,16 +70,16 @@ def prepare_command_line ():
     provean_cmd.append(supporting_set)
     return provean_cmd
     
-def run_provean():
+def run_provean(provean_cmd):
     proc = subprocess.Popen(provean_cmd, stdout=subprocess.PIPE)
     results = proc.stdout.read()
-    #print results
     nondel_list = []
     del_list = []
     write_file(del_list, "/del_list", "w")
-    #print "run provean"
     for lines in results:
-        lines = lines.rstrip()
+        print lines
+        #lines = lines.rstrip()
+    
         if re.match("#|\[", lines):
             sub_results = lines.split("\t")
         if sub_results[-1] > -2.5:
@@ -163,7 +163,7 @@ def find_AA_pos(base_loc):
 for keys in record_dict:
     cds_sequence, cds_length, cds_name = prepare_sequence()
     provean_cmd = prepare_command_line()
-    nondel_list, del_list = run_provean()
+    nondel_list, del_list = run_provean(provean_cmd)
     write_file(del_list, "/del_list", "w")
     
     
