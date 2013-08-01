@@ -76,7 +76,7 @@ def run_provean():
     #print results
     nondel_list = []
     del_list = []
-    #print del_list
+    write_file(del_list, "/del_list", "w")
     #print "run provean"
     for lines in results:
         lines = lines.rstrip()
@@ -176,7 +176,7 @@ for keys in record_dict:
                 #continue
         n = 0
         for snps_translate in snp_list:
-            print "%s\t%s\n" % (snps_translate, pos_hits)
+            #print "%s\t%s\n" % (snps_translate, pos_hits)
             if pos_hits > transcripts_cutoff:
                 i2 = 1
                 break
