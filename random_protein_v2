@@ -75,6 +75,7 @@ def run_provean():
     results = proc.stdout.read()
     nondel_list = []
     del_list = []
+    print "run provean"
     for lines in results:
         lines = lines.rstrip()
         if re.match("#|\[", lines):
