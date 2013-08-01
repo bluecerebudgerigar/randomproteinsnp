@@ -117,7 +117,7 @@ def translation():
         ori_AA = str(Seq(original_seq, IUPAC.unambiguous_dna).translate())
         mut_AA = str(Seq(mutant_seq, IUPAC.unambiguous_dna).translate())
         AA_pos = find_AA_pos(base_loc)
-        AA_var = "%s%s%s" % (ori_AA, str(aa_pos), mut_AA)
+        AA_var = "%s%s%s" % (ori_AA, str(AA_pos), mut_AA)
         AA_var_list.append(AA_var)
     return AA_var_list
 
