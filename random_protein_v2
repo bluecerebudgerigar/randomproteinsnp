@@ -77,13 +77,14 @@ def run_provean(provean_cmd):
     del_list = []
     for lines in results:
         lines = lines.rstrip()
-        sub_results=[]
-        if re.match("#|\[", lines) is None:
-            sub_results = lines.split("\t")
-        if float(sub_results[-1]) > -2.5:
-            nondel_list.append(sub_results[0])
-        elif float(sub_results[-1]) < -2.5:
-            del_list.append(sub_results[0]) 
+        if lines:
+            sub_results=[]
+            if re.match("#|\[", lines) is None:
+                sub_results = lines.split("\t")
+            if float(sub_results[-1]) > -2.5:
+                nondel_list.append(sub_results[0])
+            elif float(sub_results[-1]) < -2.5:
+                del_list.append(sub_results[0]) 
     
     return nondel_list, del_list
     
