@@ -84,7 +84,7 @@ def run_provean(provean_cmd):
                 if float(sub_results[-1]) > -2.5:
                     nondel_list.append(sub_results[0])
                 elif float(sub_results[-1]) < -2.5:
-                    catdel_list.append(sub_results[0]) 
+                    del_list.append(sub_results[0]) 
     
     return nondel_list, del_list
     
