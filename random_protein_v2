@@ -175,8 +175,8 @@ for keys in record_dict:
             #else:
                 #continue
         n = 0
-        print snp_list
         for snps_translate in snp_list:
+            print "%s\t%s\n" % (snps_translate, pos_hits)
             if pos_hits > transcripts_cutoff:
                 i2 = 1
                 break
