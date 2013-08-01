@@ -176,7 +176,7 @@ for keys in record_dict:
             if pos_hits > transcripts_cutoff:
                 i2 = 1
                 break
-            AA_var_list = translation(snps)
+            AA_var_list = translation(snps_translate)
             if(check_start_stop(AA_var_list) == 1):
                 pos_hits += 1
                 continue
