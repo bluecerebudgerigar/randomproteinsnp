@@ -79,7 +79,7 @@ def run_provean(provean_cmd):
         #print lines
         #lines = lines.rstrip()
     
-        if re.match("#|\[", lines):
+        if re.match("#|\[", lines) is None:
             sub_results = lines.split("\t")
         if float(sub_results[-1]) > -2.5:
             nondel_list.append(sub_results[0])
