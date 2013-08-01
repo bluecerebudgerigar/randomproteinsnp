@@ -170,7 +170,7 @@ for keys in record_dict:
                 #continue
         n = 0
         for snps in snp_list:
-            if pos_hits > cutoff:
+            if pos_hits > transcripts_cutoff:
                 i2 = 1
                 break
             AA_var_list = translation()
@@ -182,7 +182,7 @@ for keys in record_dict:
                 continue
             else:
                 neg_hits +=1
-            if neg_hits > transcript_cutoff:
+            if neg_hits > neg_hits_cutoff:
                 cycle += 1
                 break
     
