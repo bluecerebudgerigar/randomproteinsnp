@@ -62,7 +62,7 @@ def prepare_sequence():
     
 def prepare_command_line ():
     supporting_set = cds_name + ".sss"
-    provean_cmd = ["provean.sh","-q","fasta_record","-v","var_file_2"]
+    provean_cmd = ["provean.sh","-q","fasta_record","-v","var"]
     if os.path.isfile(supporting_set):
         provean_cmd.append("--supporting_set")
     else:
