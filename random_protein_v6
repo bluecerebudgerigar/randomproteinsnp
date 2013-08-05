@@ -167,6 +167,7 @@ for keys in record_dict:
             if snp_input not in snp_list:
                 snp_list.append(snp_input)
                 n = n + 1
+        print snp_list
         n = 0
         for snps_translate in snp_list:
             check = 0
