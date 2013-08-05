@@ -172,11 +172,11 @@ for keys in record_dict:
             check= check_start_stop(AA_var_list)
             if(check == 1):
                 pos_hits += 1
-                continue
             elif(check == 2):
                 neg_hits += 1
-                continue
-        convert_provean()
+            else:
+                convert_provean(AA_var_list)
+                
         if neg_hits > neg_hits_cutoff:
             cycle += 1
             break
