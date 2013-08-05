@@ -132,16 +132,20 @@ def convert_provean(AA_var_list): ### 7,R,P
    
    provean_sequence = bytearray(protein_sequence)
    for i in AA_var_list:
-       first_snp = AA_var_list[0]
-       last_snp = AA_var_list[-1]
-       AA_first = int(first_snp[1:-1])
-       AA_last = int(last_snp[1:-1])
-       sequence_ori = protein_sequence[AA_first-1:AA_last]
-       sequence_mut = provean_sequence[AA_first-1:AA_last]
-       provean_input = "%i,%s,%s\n" % (AA_first, sequence_ori, sequence_mut)
-       write_file(provean_input, "/var","a")
+       snp_AA = i[-1]
+       snp_AA_loc = int(i[1:-1])
+       provean_sequence[snp_AA_loc-1] = snp_AA
+  
+   first_snp = AA_var_list[0]
+   last_snp = AA_var_list[-1]
+   AA_first = int(first_snp[1:-1])
+   AA_last = int(last_snp[1:-1])
+   sequence_ori = protein_sequence[AA_first-1:AA_last]
+   sequence_mut = provean_sequence[AA_first-1:AA_last]
+   provean_input = "%i,%s,%s\n" % (AA_first, sequence_ori, sequence_mut) 
+   write_file(provean_input, "/var","a")
        
-def find_AA_pos(base_loc):
+def find_AA_pos(base_leroc):
     aa_pos = base_loc/3
     aa_pos = ceil(aa_pos)
     aa_pos = int(aa_pos)
@@ -181,13 +185,13 @@ for keys in record_dict:
                 
         if neg_hits > neg_hits_cutoff:
             cycle += 1
-            break
+            continue
         var_pos, var_neg = run_provean()
         neg_hits = neg_hits + var_neg
         pos_hits = pos_hits + var_pos
         if neg_hits > neg_hits_cutoff:
             cycle += 1
-            break
+            continue
         elif pos_hits >= transcripts_cutoff:
 			i2 = 1
 	
