@@ -35,7 +35,7 @@ def prepare_sequence():
     position = 0
     fasta_record = ">%s\n%s" % (cds_name, protein_sequence)
     write_file(fasta_record, "/fasta_record", 'w')
-    return cds_sequence, cds_length, cds_name
+    return cds_sequence, cds_length, cds_name, protein_sequence
     
     
 def prepare_command_line ():
@@ -129,13 +129,13 @@ def check_start_stop(AA_var_list):
 def convert_provean(AA_var_list): ### 7,R,P
    AA_var_list = AA_var_list.split("-")
    
-   provean_sequence = bytearray(cds_sequence)
+   provean_sequence = bytearray(protein_sequence)
    for i in AA_var_list:
        first_snp = AA_var_list[0]
        last_snp = AA_var_list[-1]
        AA_first = int(first_snp[1:-1])
        AA_last = int(last_snp[1:-1])
-       sequence_ori = cds_sequence[AA_first-1:AA_last]
+       sequence_ori = protein_sequence[AA_first-1:AA_last]
        sequence_mut = provean_sequence[AA_first-1:AA_last]
        provean_input = "%i,%s,%s\n" % (AA_first, sequence_ori, sequence_mut)
        write_file(provean_input, "/var","a")
@@ -148,7 +148,7 @@ def find_AA_pos(base_loc):
     
 for keys in record_dict:
     i2, cycle = (0,1) # declare value 
-    cds_sequence, cds_length, cds_name = prepare_sequence()
+    cds_sequence, cds_length, cds_name, protein_sequence = prepare_sequence()
     provean_cmd = prepare_command_line()
     while i2 < 1:
         n, pos_hits, neg_hits = (0,0,0) # declare counter
