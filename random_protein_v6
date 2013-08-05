@@ -84,6 +84,7 @@ def random_snps(cycle_number):
 
 def translation(snps_translate):
     AA_var_list = []
+    base_loc = 0
     input_snp_translate = snps_translate.split("-")
     for i in input_snp_translate:
         base_snp = i[-1]
@@ -145,7 +146,7 @@ def convert_provean(AA_var_list): ### 7,R,P
    provean_input = "%i,%s,%s\n" % (AA_first, sequence_ori, sequence_mut) 
    write_file(provean_input, "/var","a")
        
-def find_AA_pos(base_leroc):
+def find_AA_pos(base_loc):
     aa_pos = base_loc/3
     aa_pos = ceil(aa_pos)
     aa_pos = int(aa_pos)
@@ -174,7 +175,7 @@ for keys in record_dict:
                 i2 = 1
                 break
             AA_var_list = translation(snps_translate)
-            write_file(str(AA_var_list), "/AA_var_list", "a")
+            print AA_var_list
             check= check_start_stop(AA_var_list)
             if(check == 1):
                 pos_hits += 1
@@ -185,8 +186,9 @@ for keys in record_dict:
                 
         if neg_hits > neg_hits_cutoff:
             cycle += 1
-            continue
-        var_pos, var_neg = run_provean()
+            
+        print "hi"
+        var_pos, var_neg = run_provean(provean_cmd)
         neg_hits = neg_hits + var_neg
         pos_hits = pos_hits + var_pos
         if neg_hits > neg_hits_cutoff:
