@@ -162,7 +162,7 @@ for keys in record_dict:
         provean_list = []
         provean_input = []
         write_file("", "/var","w") # rewrite file/create blank file 
-        while (n < iterations) or (n < (cds_length * 3)): ###(iternations and number of snps to introduced.)
+        while (n < iterations): ###(iternations and number of snps to introduced.)
             snp_input = random_snps(cycle)
             if snp_input not in snp_list:
                 snp_list.append(snp_input)
