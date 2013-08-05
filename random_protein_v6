@@ -176,7 +176,7 @@ for keys in record_dict:
             elif(check == 2):
                 neg_hits += 1
             else:
-                convert_provean(AA_var_list, protein_sequence)
+                convert_provean(AA_var_list)
                 
         if neg_hits > neg_hits_cutoff:
             cycle += 1
