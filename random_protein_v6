@@ -57,6 +57,7 @@ def run_provean(provean_cmd):
     var_neg = 0
     for lines in results:
         lines = lines.rstrip()
+        print lines
         if lines:
             sub_results=[]
             if re.match("#|\[", lines) is None:
