@@ -162,18 +162,18 @@ for keys in record_dict:
                 n = n + 1
         n = 0
         for snps_translate in snp_list:
-            check_start_stop = 0
+            check = 0
             #print "%s\t%s\n" % (snps_translate, pos_hits)
             if pos_hits > transcripts_cutoff:
                 i2 = 1
                 break
             AA_var_list = translation(snps_translate)
             write_file(str(AA_var_list), "/AA_var_list", "a")
-            check_start_stop = check_start_stop(AA_var_list)
-            if(check_start_stop == 1):
+            check= check_start_stop(AA_var_list)
+            if(check == 1):
                 pos_hits += 1
                 continue
-            elif(check_start_stop == 2):
+            elif(check == 2):
                 neg_hits += 1
                 continue
         convert_provean()

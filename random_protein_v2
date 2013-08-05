@@ -161,7 +161,7 @@ def find_AA_pos(base_loc):
     
 for keys in record_dict:
     cds_sequence, cds_length, cds_name = prepare_sequence()
-    provean_cmd = prepare_command_line()
+    provean_cmd = prepare_command_line()    
     nondel_list, del_list = run_provean(provean_cmd)
     write_file(del_list, "/del_list", "w")
     
