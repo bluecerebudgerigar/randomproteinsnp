@@ -159,6 +159,7 @@ for keys in record_dict:
     i2, cycle = (0,1) # declare value 
     cds_sequence, cds_length, cds_name, protein_sequence = prepare_sequence()
     provean_cmd = prepare_command_line()
+    print protein_sequence
     while i2 < 1:
         n, pos_hits, neg_hits = (0,0,0) # declare counter
         snp_list = []
