@@ -151,7 +151,6 @@ def convert_provean(AA_var_list): ### 7,R,P
        
 def find_AA_pos(base_loc):
     aa_pos = float(base_loc)/3
-    aa_pos = base_loc/3
     aa_pos = ceil(aa_pos)
     aa_pos = int(aa_pos)
     return aa_pos
