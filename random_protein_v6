@@ -27,7 +27,7 @@ def write_file(object_name, file_name, mode):
     handle.close()
     
 def prepare_sequence():
-    cds_sequence, cds_length, protein_sequence = ("","","")
+    global cds_sequence, cds_length, cds_name, protein_sequence = ("","","","")
     cds_sequence = record_dict[keys].seq
     cds_name = record_dict[keys].id
     protein_sequence = cds_sequence.translate()
