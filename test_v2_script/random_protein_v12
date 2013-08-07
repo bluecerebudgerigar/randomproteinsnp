@@ -52,6 +52,8 @@ def prepare_command_line ():
     return provean_cmd
     
 def run_provean(provean_cmd):
+    print "STARTING RUN"
+    
     proc = subprocess.Popen(provean_cmd, stdout=subprocess.PIPE)
     results = proc.stdout.readlines()
     nondel_list = []
@@ -59,7 +61,6 @@ def run_provean(provean_cmd):
     snp_pos = 0
     var_neg = 0
     var_pos = 0
-    print "STARTING RUN"
     for lines in results:
         lines = lines.rstrip()
         print lines
