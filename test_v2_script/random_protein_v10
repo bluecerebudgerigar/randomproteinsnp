@@ -1,0 +1,208 @@
+#!/usr/bin/env python
+from Bio import SeqIO
+from Bio.Seq import Seq
+from Bio.Alphabet import IUPAC
+import random, os, subprocess, re, getopt, sys, signal
+from math import ceil
+
+opts, arguments = getopt.getopt(sys.argv[1:], "f:i:c:", 
+["fasta","iterations","cutoff"])
+for option, argument in opts:
+    if option in ("-f", "--fasta"):
+        fasta_file = argument
+        record_dict    = SeqIO.index(argument, "fasta")
+    elif option in ("-i", "--iterations"):
+        iterations     = int(argument)
+    elif option in ("-c", "--cutoff"):
+        transcripts_cutoff = float(argument)
+
+
+neg_hits_cutoff = iterations - transcripts_cutoff
+pwd = os.getcwd()
+
+def write_file(object_name, file_name, mode):
+    file_path=pwd + file_name
+    handle = open(file_path, mode)    
+    handle.write(str(object_name))
+    handle.close()
+    
+def prepare_sequence():
+    cds_sequence, cds_length, protein_sequence = ("",0,"")
+    cds_sequence = record_dict[keys].seq
+    cds_name = record_dict[keys].id
+    protein_sequence = cds_sequence.translate()
+    cds_length = len(str(cds_sequence))
+    position = 0
+    fasta_record = ">%s\n%s" % (cds_name, protein_sequence)
+    fasta_record_file = "/%s_.fa" % (cds_name)
+    write_file(fasta_record, fasta_record_file, 'w')
+    return cds_sequence, cds_length, cds_name, protein_sequence, fasta_record_file
+    
+    
+def prepare_command_line ():
+    supporting_set = cds_name + ".sss"
+    var_file = "%s_var" % (cds_name)
+    
+    provean_cmd = ["provean.sh","-q","."+fasta_record_file,"-v",var_file]
+    if os.path.isfile(supporting_set):
+        provean_cmd.append("--supporting_set")
+    else:
+        provean_cmd.append("--save_supporting_set")
+    provean_cmd.append(supporting_set)
+    return provean_cmd
+    
+def run_provean(provean_cmd):
+    proc = subprocess.Popen(provean_cmd, stdout=subprocess.PIPE)
+    results = proc.stdout.readlines()
+    nondel_list = []
+    del_list = []
+    snp_pos = 0
+    var_neg = 0
+    var_pos = 0
+    for lines in results:
+        lines = lines.rstrip()
+        if lines:
+            sub_results=[]
+            if re.match("#|\[", lines) is None:
+                sub_results = lines.split("\t")
+                if float(sub_results[-1]) > -2.5:
+					var_neg = var_neg + 1
+                elif float(sub_results[-1]) < -2.5:
+                    var_pos = var_pos + 1  # 
+    
+    return var_pos, var_neg
+    
+def random_snps(cycle_number):
+    snp_input_list = []
+    snp_input      = ""
+    snp_pos=random.sample(range(1,cds_length+1), cycle_number)
+    snp_pos.sort()
+    for i in snp_pos:
+        base      = cds_sequence[i-1]
+        snp_base  = random.choice([x for x in "ATGC" if x != base])
+        snp_input = "%s%s%s" % (base, str(i), snp_base)
+        snp_input_list.append(snp_input)
+    snp_input="-".join(snp_input_list)
+    return snp_input
+
+def translation(snps_translate):
+    AA_var_list = []
+    base_loc = 0
+    input_snp_translate = snps_translate.split("-")
+    for i in input_snp_translate:
+        base_snp = i[-1]
+        base_loc = i[1:-1]
+        base_loc = int(base_loc)
+        if (base_loc%3 == 0):
+            original_seq = str(cds_sequence)[base_loc-3:base_loc]
+            mutant_seq = original_seq[:2] + base_snp
+        elif (base_loc%3 == 1):
+            original_seq = str(cds_sequence)[base_loc-1:base_loc+2] 
+            mutant_seq = original_seq[0] + base_snp + original_seq[2]
+        elif (base_loc%3 == 2):
+            original_seq = str(cds_sequence)[base_loc-2:base_loc+1]
+            mutant_seq = base_snp + original_seq[1:3]
+        ori_AA = str(Seq(original_seq, IUPAC.unambiguous_dna).translate())
+        mut_AA = str(Seq(mutant_seq, IUPAC.unambiguous_dna).translate())
+        AA_pos = find_AA_pos(base_loc)
+        AA_var = "%s%s%s" % (ori_AA, str(AA_pos), mut_AA)
+        AA_var_list.append(AA_var)
+    AA_var_list="-".join(AA_var_list)
+    return AA_var_list
+
+def check_start_stop(AA_var_list):
+    n = 0
+    syn = 0
+    AA_var_list = AA_var_list.split("-")
+    
+    for i in AA_var_list:
+        AA_loc = i[1:-1]
+        ori_AA = i[0]
+        mut_AA = i[-1]
+        if (AA_loc == 1):
+            n = 1
+            break
+        elif (ori_AA == '*' or mut_AA == '*') and (mut_AA != ori_AA):
+            n = 1
+            break
+        elif mut_AA == ori_AA:
+            syn = syn + 1
+    if syn == len(AA_var_list):
+        n = 2
+    return n 
+            
+def convert_provean(AA_var_list): ### 7,R,P
+   AA_var_list = AA_var_list.split("-")
+   
+   provean_sequence = bytearray(protein_sequence)
+   for i in AA_var_list:
+       snp_AA = i[-1]
+       snp_AA_loc = int(i[1:-1])
+       provean_sequence[snp_AA_loc-1] = snp_AA
+  
+   first_snp = AA_var_list[0]
+   last_snp = AA_var_list[-1]
+   AA_first = int(first_snp[1:-1])
+   AA_last = int(last_snp[1:-1])
+   sequence_ori = protein_sequence[AA_first-1:AA_last]
+   sequence_mut = provean_sequence[AA_first-1:AA_last]
+   provean_input = "%i,%s,%s\n" % (AA_first, sequence_ori, sequence_mut)
+   var_file = "/%s_var" % (cds_name)
+   write_file(provean_input, var_file,"a")
+       
+def find_AA_pos(base_loc):
+    aa_pos = float(base_loc)/3
+    aa_pos = ceil(aa_pos)
+    aa_pos = int(aa_pos)
+    return aa_pos
+    
+for keys in record_dict:
+    i2, cycle = (0,1) # declare value 
+    cds_sequence, cds_length, cds_name, protein_sequence, fasta_record_file = prepare_sequence()
+    while i2 < 1:
+        n, pos_hits, neg_hits = (0,0,0) # declare counter
+        snp_list = []
+        provean_list = []
+        provean_input = []
+        write_file("", "/var","w") # rewrite file/create blank file 
+        while (n < iterations) and (n < (int(cds_length)*3)): ###(iternations and number of snps to introduced.)
+            snp_input = random_snps(cycle)
+            if snp_input not in snp_list:
+                snp_list.append(snp_input)
+                n = n + 1
+        n = 0
+        for snps_translate in snp_list:
+            check = 0
+            #print "%s\t%s\n" % (snps_translate, pos_hits)
+            if pos_hits > transcripts_cutoff:
+                i2 = 1
+                break
+            AA_var_list = translation(snps_translate)
+            check= check_start_stop(AA_var_list)
+            if(check == 1):
+                pos_hits += 1
+            elif(check == 2):
+                neg_hits += 1
+            else:
+                convert_provean(AA_var_list)
+                
+        if neg_hits > neg_hits_cutoff:
+            cycle += 1
+            continue
+        provean_cmd = prepare_command_line()
+        
+        var_pos, var_neg = run_provean(provean_cmd)
+        neg_hits = neg_hits + var_neg
+        pos_hits = pos_hits + var_pos
+        if neg_hits > neg_hits_cutoff:
+            cycle += 1
+            continue
+        elif pos_hits >= transcripts_cutoff:
+			i2 = 1	
+    results_file = "%s\t%s\t%s\n" % (cds_name, cds_length, str(cycle))
+    results_filename = "/%s_results" %(fasta_file)
+    write_file(results_file, results_filename, "a")
+
+            
+    
+  
