@@ -61,6 +61,7 @@ def run_provean(provean_cmd):
     var_pos = 0
     for lines in results:
         lines = lines.rstrip()
+        print lines
         if lines:
             sub_results=[]
             if re.match("#|\[", lines) is None:
@@ -164,7 +165,8 @@ for keys in record_dict:
         snp_list = []
         provean_list = []
         provean_input = []
-        write_file("", "/var","w") # rewrite file/create blank file 
+        var_file = "/%s_var" % (cds_name)
+        write_file("", var_file,"w") # rewrite file/create blank file 
         while (n < iterations) and (n < (int(cds_length)*3)): ###(iternations and number of snps to introduced.)
             snp_input = random_snps(cycle)
             if snp_input not in snp_list:
