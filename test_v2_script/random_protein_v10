@@ -174,9 +174,6 @@ for keys in record_dict:
         for snps_translate in snp_list:
             check = 0
             #print "%s\t%s\n" % (snps_translate, pos_hits)
-            if pos_hits > transcripts_cutoff:
-                i2 = 1
-                break
             AA_var_list = translation(snps_translate)
             check= check_start_stop(AA_var_list)
             if(check == 1):
@@ -185,12 +182,14 @@ for keys in record_dict:
                 neg_hits += 1
             else:
                 convert_provean(AA_var_list)
-                
+        if pos_hits >= transcripts_cutoff:
+            i2 = 1
+            continue      
         if neg_hits > neg_hits_cutoff:
             cycle += 1
             continue
+            
         provean_cmd = prepare_command_line()
-        
         var_pos, var_neg = run_provean(provean_cmd)
         neg_hits = neg_hits + var_neg
         pos_hits = pos_hits + var_pos
